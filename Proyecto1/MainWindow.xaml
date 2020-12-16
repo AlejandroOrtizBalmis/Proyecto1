@@ -5,8 +5,83 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Proyecto1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Icon="icon.ico"
+        Title="Películas"
+        Height="450"
+        Width="800">
     <Grid>
-        
+        <TabControl>
+            <TabItem Header="Jugar">
+                <DockPanel>
+                    <StackPanel Orientation="Vertical"
+                                DockPanel.Dock="Bottom">
+                        <Button></Button>
+                        <TextBlock></TextBlock>
+                        <Button></Button>
+                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <DockPanel Grid.Column="0">
+                            <TextBlock Text="Cartel de la pelicula"
+                                       DockPanel.Dock="Top" />
+                            <Image></Image>
+                        </DockPanel>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <DockPanel LastChildFill="False"
+                                       Grid.Row="0">
+                                <TextBlock DockPanel.Dock="Top"
+                                           Text="Puntuación total"
+                                           HorizontalAlignment="Center"
+                                           Margin="0,0,0,10"/>
+                                <Button DockPanel.Dock="Right"
+                                        Content="Nueva Partida"
+                                        Height="20"
+                                        VerticalAlignment="Top"/>
+                                <TextBox Height="80"
+                                         Width="100"
+                                         DockPanel.Dock="Top"
+                                         HorizontalAlignment="Right"
+                                         Margin="0,0,60,0"/>
+                            </DockPanel>
+                            <StackPanel Orientation="Vertical"
+                                        Grid.Row="1">
+                                <TextBlock Text="Título de la película" />
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right"
+                                            Content="Validar" />
+                                    <TextBox />
+                                </DockPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical"
+                                        Grid.Row="2">
+                                <CheckBox Content="Ver Pista" />
+                                <TextBlock Visibility="Hidden" />
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical"
+                                        Grid.Row="3">
+                                <Image HorizontalAlignment="Center"/>
+                                <TextBlock Text="Género"
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </DockPanel>
+
+            </TabItem>
+            <TabItem Header="Gestionar">
+                
+                
+
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
