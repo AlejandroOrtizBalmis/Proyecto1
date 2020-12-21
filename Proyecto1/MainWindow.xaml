@@ -41,16 +41,16 @@
                                 <TextBlock DockPanel.Dock="Top"
                                            Text="Puntuación total"
                                            HorizontalAlignment="Center"
-                                           Margin="0,0,0,10"/>
+                                           Margin="0,0,0,10" />
                                 <Button DockPanel.Dock="Right"
                                         Content="Nueva Partida"
                                         Height="20"
-                                        VerticalAlignment="Top"/>
+                                        VerticalAlignment="Top" />
                                 <TextBox Height="80"
                                          Width="100"
                                          DockPanel.Dock="Top"
                                          HorizontalAlignment="Right"
-                                         Margin="0,0,60,0"/>
+                                         Margin="0,0,60,0" />
                             </DockPanel>
                             <StackPanel Orientation="Vertical"
                                         Grid.Row="1">
@@ -68,9 +68,9 @@
                             </StackPanel>
                             <StackPanel Orientation="Vertical"
                                         Grid.Row="3">
-                                <Image HorizontalAlignment="Center"/>
+                                <Image HorizontalAlignment="Center" />
                                 <TextBlock Text="Género"
-                                           HorizontalAlignment="Center"/>
+                                           HorizontalAlignment="Center" />
                             </StackPanel>
                         </Grid>
                     </Grid>
@@ -78,8 +78,89 @@
 
             </TabItem>
             <TabItem Header="Gestionar">
-                
-                
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
+                    <ListBox Grid.Column="0"
+                             Grid.Row="0"
+                             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                             ScrollViewer.HorizontalScrollBarVisibility="Auto">
+
+                    </ListBox>
+                    <StackPanel Orientation="Vertical"
+                                Grid.Column="1"
+                                Grid.Row="0"
+                                Margin="5">
+                        <Button Content="Cargar de JSON" />
+                        <Button Content="Guardar en JSON"
+                                Margin="0,0,0,20" />
+                        <Button Content="Eliminar película" />
+                        <Button Content="Añadir película" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Grid.Row="1"
+                                Grid.Column="0">
+                        <TextBlock Text="Título de la película" />
+                        <TextBox />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Grid.Row="2"
+                                Grid.Column="0">
+                        <TextBlock Text="Pista de la película" />
+                        <TextBox />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                Grid.Row="3"
+                                Grid.Column="0">
+                        <TextBlock Text="Imágen de la película" />
+                        <TextBox />
+                    </StackPanel>
+                    <Button Grid.Column="1"
+                            Grid.Row="3"
+                            Content="Examinar"
+                            Width="150"
+                            Height="18"
+                            Margin="5,12,5,0" />
+                    <DockPanel Grid.Column="0"
+                               Grid.Row="4">
+                        <TextBlock DockPanel.Dock="Left"
+                                   Text="Nivel de dificultad"
+                                   Margin="0,5,10,0"/>
+                        <StackPanel Orientation="Vertical"
+                                    DockPanel.Dock="Left"
+                                    VerticalAlignment="Center">
+                            <RadioButton Content="Fácil"
+                                         GroupName="dificultad"
+                                         Margin="0,3,0,3"/>
+                            <RadioButton Content="Normal"
+                                         GroupName="dificultad"
+                                         Margin="0,3,0,3" />
+                            <RadioButton Content="Difícil"
+                                         GroupName="dificultad"
+                                         Margin="0,3,0,3" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
+                            <TextBlock Text="Género"
+                                       VerticalAlignment="Center" 
+                                       Margin="0,0,5,0"/>
+                            <ComboBox Width="100" 
+                                      VerticalAlignment="Center"
+                                      Height="20"
+                                      Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </DockPanel>
+                </Grid>
+
 
             </TabItem>
         </TabControl>
