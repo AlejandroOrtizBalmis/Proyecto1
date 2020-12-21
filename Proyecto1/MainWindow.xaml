@@ -9,15 +9,18 @@
         Title="Películas"
         Height="450"
         Width="800">
+  <WindowsResources>
+  </WindowsResources>
     <Grid>
         <TabControl>
             <TabItem Header="Jugar">
-                <DockPanel>
-                    <StackPanel Orientation="Vertical"
+                <DockPanel Margin="5">
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
                                 DockPanel.Dock="Bottom">
-                        <Button></Button>
-                        <TextBlock></TextBlock>
-                        <Button></Button>
+                      <Image Source="arrow.ico"/>
+                        <TextBlock Text="1/5"></TextBlock>
+                      <Image Source="arrow.ico"/>
                     </StackPanel>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -28,7 +31,7 @@
                             <TextBlock Text="Cartel de la pelicula"
                                        DockPanel.Dock="Top" />
                             <Image></Image>
-                        </DockPanel>
+                        </DockPanel> 
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="2*" />
@@ -57,14 +60,17 @@
                                 <TextBlock Text="Título de la película" />
                                 <DockPanel>
                                     <Button DockPanel.Dock="Right"
-                                            Content="Validar" />
-                                    <TextBox />
+                                            Content="Validar"
+                                            Margin="5"
+                                            Width="60"/>
+                                    <TextBox Margin="5"/>
                                 </DockPanel>
                             </StackPanel>
                             <StackPanel Orientation="Vertical"
                                         Grid.Row="2">
                                 <CheckBox Content="Ver Pista" />
-                                <TextBlock Visibility="Hidden" />
+                                <TextBlock Text="Pista de la película"
+                                    Visibility="Hidden" />
                             </StackPanel>
                             <StackPanel Orientation="Vertical"
                                         Grid.Row="3">
