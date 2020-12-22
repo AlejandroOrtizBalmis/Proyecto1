@@ -120,7 +120,9 @@
 
             </TabItem>
             <TabItem Header="Gestionar">
-                <Grid Margin="5">
+                <Grid Margin="5"
+                      x:Name="gestionarGrid"
+                      >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*" />
                         <ColumnDefinition Width="*" />
@@ -134,47 +136,75 @@
                     </Grid.RowDefinitions>
                     <ListBox Grid.Column="0"
                              Grid.Row="0"
-                             ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                             ScrollViewer.HorizontalScrollBarVisibility="Auto">
-
+                             x:Name="peliculasListBox"
+                             ItemsSource="{Binding}"
+                             ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical"
+                                            Height="100"
+                                            Width="80">
+                                    <Image Source="{Binding Imagen}"
+                                           Height="80"/>
+                                    <TextBlock Text="{Binding Titulo}"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                     <StackPanel Orientation="Vertical"
                                 Grid.Column="1"
                                 Grid.Row="0"
                                 Margin="5">
                         <Button Content="Cargar de JSON" 
+                                x:Name="CargarButton"
+                                Click="CargarButton_Click"
                                 Style="{StaticResource botonesArchivo}"/>
                         <Button Content="Guardar en JSON"
+                                x:Name="GuardarButton"
+                                Click="GuardarButton_Click"
                                 Margin="0,0,0,25" />
                         <Button Content="Eliminar película"
+                                x:Name="EliminarPeliculaButton"
                                 Style="{StaticResource botonesArchivo}" />
                         <Button Content="Añadir película"
+                                x:Name="AñadirPeliculaButton"
+                                Click="AñadirPeliculaButton_Click"
+                                Margin="0,0,0,25"  />
+                        <Button Content="Editar película"
+                                x:Name="EditarButton"
                                 Style="{StaticResource botonesArchivo}" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical"
                                 Grid.Row="1"
                                 Grid.Column="0">
-                        <TextBlock Text="Título de la película" />
-                        <TextBox />
+                        <TextBlock Text="Título de la película"/>
+                        <TextBox x:Name="tituloTextBox" Text="{Binding Titulo}"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical"
                                 Grid.Row="2"
                                 Grid.Column="0">
-                        <TextBlock Text="Pista de la película" />
-                        <TextBox />
+                        <TextBlock Text="Pista de la película"/>
+                        <TextBox x:Name="pistaTextBox" Text="{Binding Pista}" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical"
                                 Grid.Row="3"
                                 Grid.Column="0">
-                        <TextBlock Text="Imágen de la película" />
-                        <TextBox />
+                        <TextBlock Text="Imágen de la película"/>
+                        <TextBox x:Name="imagenPeliculaTextBox" Text="{Binding Imagen}" />
                     </StackPanel>
                     <Button Grid.Column="1"
                             Grid.Row="3"
                             Content="Examinar"
-                            Width="150"
+                            Width="145"
                             Height="18"
-                            Margin="5,12,5,0" />
+                            Margin="5,12,0,0" />
                     <DockPanel Grid.Column="0"
                                Grid.Row="4">
                         <TextBlock DockPanel.Dock="Left"
@@ -183,9 +213,9 @@
                         <StackPanel Orientation="Vertical"
                                     DockPanel.Dock="Left"
                                     VerticalAlignment="Center">
-                            <RadioButton Content="Fácil"/>
-                            <RadioButton Content="Normal" />
-                            <RadioButton Content="Difícil"/>
+                            <RadioButton Content="Fácil" x:Name="facilRadioButton"/>
+                            <RadioButton Content="Normal" x:Name="normalRadioButton" />
+                            <RadioButton Content="Difícil" x:Name="dificilRadioButton"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Center">
@@ -195,7 +225,8 @@
                             <ComboBox Width="100" 
                                       VerticalAlignment="Center"
                                       Height="20"
-                                      Margin="5,0,0,0"/>
+                                      Margin="5,0,0,0"
+                                      x:Name="generoComboBox"/>
                         </StackPanel>
                     </DockPanel>
                 </Grid>

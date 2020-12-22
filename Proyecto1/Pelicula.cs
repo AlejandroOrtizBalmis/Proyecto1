@@ -1,18 +1,63 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Proyecto1
 {
-    class Pelicula
+    public class Pelicula:INotifyPropertyChanged
     {
-        public string titulo, pista, imagen, dificultad, genero;
+        private String titulo;
 
-        public Pelicula(String titulo, String pista, String imagen, String dificultad, String genero) {
-            this.titulo = titulo;
-            this.pista = pista;
-            this.imagen = imagen;
-            this.dificultad = dificultad;
-            this.genero = genero;
+        public String Titulo
+        {
+            get { return titulo; }
+            set { titulo = value; }
         }
 
+        private String pista;
+
+        public String Pista
+        {
+            get { return pista; }
+            set { pista = value; }
+        }
+
+        private String imagen;
+
+        public String Imagen
+        {
+            get { return imagen; }
+            set { imagen = value; }
+        }
+
+        private String dificultad;
+
+        public String Dificultad
+        {
+            get { return dificultad; }
+            set { dificultad = value; }
+        }
+
+        private String genero;
+
+        public String Genero
+        {
+            get { return genero; }
+            set { genero = value; }
+        }
+
+
+        public Pelicula(String titulo, String pista, String imagen, String dificultad, String genero) {
+            this.Titulo = titulo;
+            this.Pista = pista;
+            this.Imagen = imagen;
+            this.Dificultad = dificultad;
+            this.Genero = genero;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
