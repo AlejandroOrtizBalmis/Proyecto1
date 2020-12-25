@@ -10,7 +10,14 @@ namespace Proyecto1
         public String Titulo
         {
             get { return titulo; }
-            set { titulo = value; }
+            set 
+            {
+                if (this.titulo != value) 
+                {
+                    this.titulo = value;
+                    this.NotifyPropertyChanged("Titulo");
+                }
+            }
         }
 
         private String pista;
@@ -18,7 +25,14 @@ namespace Proyecto1
         public String Pista
         {
             get { return pista; }
-            set { pista = value; }
+            set 
+            {
+                if (this.pista != value)
+                {
+                    this.pista = value;
+                    this.NotifyPropertyChanged("Pista");
+                } 
+            }
         }
 
         private String imagen;
@@ -26,7 +40,14 @@ namespace Proyecto1
         public String Imagen
         {
             get { return imagen; }
-            set { imagen = value; }
+            set 
+            {
+                if (this.imagen != value)
+                {
+                    this.imagen = value;
+                    this.NotifyPropertyChanged("Imagen");
+                }
+            }
         }
 
         private String dificultad;
@@ -34,7 +55,14 @@ namespace Proyecto1
         public String Dificultad
         {
             get { return dificultad; }
-            set { dificultad = value; }
+            set 
+            { 
+                if(this.dificultad!=value)
+                {
+                    this.dificultad = value;
+                    this.NotifyPropertyChanged("Dificultad");
+                }
+            }
         }
 
         private String genero;
@@ -42,10 +70,17 @@ namespace Proyecto1
         public String Genero
         {
             get { return genero; }
-            set { genero = value; }
+            set 
+            {
+                if (this.genero != value)
+                {
+                    this.genero = value;
+                    this.NotifyPropertyChanged("Genero");
+                } 
+            }
         }
 
-
+        public Pelicula() { }
         public Pelicula(String titulo, String pista, String imagen, String dificultad, String genero) {
             this.Titulo = titulo;
             this.Pista = pista;

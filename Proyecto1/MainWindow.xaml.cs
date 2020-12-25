@@ -25,8 +25,7 @@ namespace Proyecto1
             List<string> generos = new List<string> {"Comedia","Drama","Acción","Terror","Ciencia-Ficción"};
             generoComboBox.ItemsSource = generos;
             generoComboBox.SelectedItem = "Comedia";
-            facilRadioButton.IsChecked = true;
-
+            int contador = 0;
             añadirPeliculasJuego();
         }
 
@@ -44,7 +43,7 @@ namespace Proyecto1
             else contador++;
             jugarDockPanel.DataContext = peliculasJuego[contador];
             contadorTextBlock.Text = (contador + 1) + " / " + peliculasJuego.Count;
-
+            
         }
 
         private void GuardarButton_Click(object sender, RoutedEventArgs e)
@@ -80,45 +79,60 @@ namespace Proyecto1
 
         private void AñadirPeliculaButton_Click(object sender, RoutedEventArgs e)
         {
-            if (vacios() == false)
+            Pelicula n = new Pelicula(); ;
+            if (contador == 0)
             {
-                string dificultad = "";
-                if (facilRadioButton.IsChecked == true) dificultad = "facil";
-                else if (normalRadioButton.IsChecked == true) dificultad = "normal";
-                else dificultad = "dificil";
-
-
-                String genero="";
-                switch (generoComboBox.SelectedItem.ToString()) 
-                {
-                    case "Comedia":
-                        genero="comedia";
-                        break;
-                    case "Drama":
-                        genero = "drama";
-                        break;
-                    case "Acción":
-                        genero = "accion";
-                        break;
-                    case "Terror":
-                        genero = "terror";
-                        break;
-                    case "Ciencia-Ficción":
-                        genero = "ciencia-ficcion";
-                        break;
-
-                }
-
-                peliculasTotales.Add(new Pelicula(tituloTextBox.Text, pistaTextBox.Text, imagenPeliculaTextBox.Text, dificultad, genero));
-                limpiar();
+                contador++;
+                peliculasTotales.Add(n);
+                MessageBox.Show("Introduzca los datos de la películas", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            else MessageBox.Show("Datos de película vacios","Error",MessageBoxButton.OK,MessageBoxImage.Error);
-            
+            else
+            {
+                if (vacios())
+                {
+                    string dificultad = "";
+                    if (facilRadioButton.IsChecked == true) dificultad = "facil";
+                    else if (normalRadioButton.IsChecked == true) dificultad = "normal";
+                    else dificultad = "dificil";
+                    
+
+                    String genero = "";
+                    switch (generoComboBox.SelectedItem.ToString())
+                    {
+                        case "Comedia":
+                            genero = "comedia";
+                            break;
+                        case "Drama":
+                            genero = "drama";
+                            break;
+                        case "Acción":
+                            genero = "accion";
+                            break;
+                        case "Terror":
+                            genero = "terror";
+                            break;
+                        case "Ciencia-Ficción":
+                            genero = "ciencia-ficcion";
+                            break;
+
+                    }
+                    n.Titulo = tituloTextBox.Text;
+                    n.Pista = pistaTextBox.Text;
+                    n.Imagen = imagenPeliculaTextBox.Text;
+                    n.Genero = genero;
+                    n.Dificultad = dificultad; limpiar();
+                    contador = 0;
+                }
+                else MessageBox.Show("Datos de película vacios", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private ObservableCollection<Pelicula> datos() {
             ObservableCollection<Pelicula> datos = new ObservableCollection<Pelicula>();
             datos.Add(new Pelicula("300","El protagonista de la película se llama Leónidas", "http://2.bp.blogspot.com/-bhxSSMta6ck/VqlbzSopFbI/AAAAAAAAC3w/wgOtNRNWtXA/s1600/300.jpg","facil","accion"));
             datos.Add(new Pelicula("Tron", "La mayor parte de la película transcurre dentro de un juego", "https://fundacionsistema.com/wp-content/uploads/2015/03/Tron20Legacy.jpg", "normal", "ciencia-ficcion"));
+            datos.Add(new Pelicula("El Rey Leon", "Película de dibujos animados sobre la vida de un león", "https://2.bp.blogspot.com/--lzqGUaUL8M/WTr0pTqYXBI/AAAAAAAABpY/RvVRNiHk5NUmgQ_17H0DPvPmJtQBy32UQCLcB/s1600/the-lion-king-524fb69e8c273.jpg", "normal", "drama"));
+            datos.Add(new Pelicula("Un Ciudadano Ejemplar", "Venganza de un hombre despues de ver como asesinan a su esposa e hija", "http://es.web.img2.acsta.net/c_310_420/medias/nmedia/18/74/21/97/19417685.jpg", "dificil", "accion"));
+            datos.Add(new Pelicula("Up", "El vehículo de transporte es una casa con globos", "https://vlagc.files.wordpress.com/2018/03/4681060_640px-e1521048043801.jpg", "normal", "ciencia-ficcion"));
 
 
             return datos;
@@ -131,7 +145,7 @@ namespace Proyecto1
             generoComboBox.SelectedItem = "Comedia";
         }
         public bool vacios() {
-            if (tituloTextBox.Text == "" && imagenPeliculaTextBox.Text == "" && pistaTextBox.Text == "")
+            if (tituloTextBox.Text == ""  && imagenPeliculaTextBox.Text == "" && pistaTextBox.Text == "")
                 return true;
             else return false;
         }
