@@ -50,17 +50,61 @@ namespace Proyecto1
             }
         }
 
-        private String dificultad;
+        private Boolean facil;
 
-        public String Dificultad
+        public Boolean Facil
         {
-            get { return dificultad; }
+            get { return facil; }
             set 
             { 
-                if(this.dificultad!=value)
+                if(this.facil!=value)
                 {
-                    this.dificultad = value;
-                    this.NotifyPropertyChanged("Dificultad");
+                    this.facil = value;
+                    this.NotifyPropertyChanged("Facil");
+                    if (facil) 
+                    {
+                        normal = false;
+                        dificil = false;
+                    }
+                }
+            }
+        }
+        private Boolean normal;
+
+        public Boolean Normal
+        {
+            get { return normal; }
+            set
+            {
+                if (this.normal != value)
+                {
+                    this.normal = value;
+                    this.NotifyPropertyChanged("Normal");
+                    if (normal)
+                    {
+                        dificil = false;
+                        facil = false;
+                    }
+                }
+            }
+        }
+
+        private Boolean dificil;
+
+        public Boolean Dificil
+        {
+            get { return dificil; }
+            set
+            {
+                if (this.dificil != value)
+                {
+                    this.dificil = value;
+                    this.NotifyPropertyChanged("Dificil");
+                    if (dificil) 
+                    {
+                        normal = false;
+                        facil = false;
+                    }
                 }
             }
         }
@@ -81,11 +125,13 @@ namespace Proyecto1
         }
 
         public Pelicula() { }
-        public Pelicula(String titulo, String pista, String imagen, String dificultad, String genero) {
+        public Pelicula(String titulo, String pista, String imagen, Boolean facil,Boolean normal,  Boolean dificil, String genero) {
             this.Titulo = titulo;
             this.Pista = pista;
             this.Imagen = imagen;
-            this.Dificultad = dificultad;
+            this.Facil = facil;
+            this.Normal = normal;
+            this.Dificil = dificil;
             this.Genero = genero;
         }
 

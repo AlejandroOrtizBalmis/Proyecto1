@@ -90,37 +90,20 @@ namespace Proyecto1
             {
                 if (vacios())
                 {
-                    string dificultad = "";
-                    if (facilRadioButton.IsChecked == true) dificultad = "facil";
-                    else if (normalRadioButton.IsChecked == true) dificultad = "normal";
-                    else dificultad = "dificil";
                     
-
-                    String genero = "";
-                    switch (generoComboBox.SelectedItem.ToString())
-                    {
-                        case "Comedia":
-                            genero = "comedia";
-                            break;
-                        case "Drama":
-                            genero = "drama";
-                            break;
-                        case "Acción":
-                            genero = "accion";
-                            break;
-                        case "Terror":
-                            genero = "terror";
-                            break;
-                        case "Ciencia-Ficción":
-                            genero = "ciencia-ficcion";
-                            break;
-
-                    }
+                    
+                    
                     n.Titulo = tituloTextBox.Text;
                     n.Pista = pistaTextBox.Text;
                     n.Imagen = imagenPeliculaTextBox.Text;
-                    n.Genero = genero;
-                    n.Dificultad = dificultad; limpiar();
+                    n.Genero = generoComboBox.SelectedItem.ToString();
+                    if (facilRadioButton.IsChecked == true) n.Facil = true;
+                    else n.Facil = false;
+                    if (normalRadioButton.IsChecked == true) n.Normal = true;
+                    else n.Normal = false;
+                    if (dificilRadioButton.IsChecked == true) n.Dificil = true;
+                    else n.Dificil = false;
+                    limpiar();
                     contador = 0;
                 }
                 else MessageBox.Show("Datos de película vacios", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -128,11 +111,11 @@ namespace Proyecto1
         }
         private ObservableCollection<Pelicula> datos() {
             ObservableCollection<Pelicula> datos = new ObservableCollection<Pelicula>();
-            datos.Add(new Pelicula("300","El protagonista de la película se llama Leónidas", "http://2.bp.blogspot.com/-bhxSSMta6ck/VqlbzSopFbI/AAAAAAAAC3w/wgOtNRNWtXA/s1600/300.jpg","facil","accion"));
-            datos.Add(new Pelicula("Tron", "La mayor parte de la película transcurre dentro de un juego", "https://fundacionsistema.com/wp-content/uploads/2015/03/Tron20Legacy.jpg", "normal", "ciencia-ficcion"));
-            datos.Add(new Pelicula("El Rey Leon", "Película de dibujos animados sobre la vida de un león", "https://2.bp.blogspot.com/--lzqGUaUL8M/WTr0pTqYXBI/AAAAAAAABpY/RvVRNiHk5NUmgQ_17H0DPvPmJtQBy32UQCLcB/s1600/the-lion-king-524fb69e8c273.jpg", "normal", "drama"));
-            datos.Add(new Pelicula("Un Ciudadano Ejemplar", "Venganza de un hombre despues de ver como asesinan a su esposa e hija", "http://es.web.img2.acsta.net/c_310_420/medias/nmedia/18/74/21/97/19417685.jpg", "dificil", "accion"));
-            datos.Add(new Pelicula("Up", "El vehículo de transporte es una casa con globos", "https://vlagc.files.wordpress.com/2018/03/4681060_640px-e1521048043801.jpg", "normal", "ciencia-ficcion"));
+            datos.Add(new Pelicula("300","El protagonista de la película se llama Leónidas", "http://2.bp.blogspot.com/-bhxSSMta6ck/VqlbzSopFbI/AAAAAAAAC3w/wgOtNRNWtXA/s1600/300.jpg",true,false,false,"Acción"));
+            datos.Add(new Pelicula("Tron", "La mayor parte de la película transcurre dentro de un juego", "https://fundacionsistema.com/wp-content/uploads/2015/03/Tron20Legacy.jpg", false, true, false, "Ciencia-Ficción"));
+            datos.Add(new Pelicula("El Rey Leon", "Película de dibujos animados sobre la vida de un león", "https://2.bp.blogspot.com/--lzqGUaUL8M/WTr0pTqYXBI/AAAAAAAABpY/RvVRNiHk5NUmgQ_17H0DPvPmJtQBy32UQCLcB/s1600/the-lion-king-524fb69e8c273.jpg", false, true, false, "Drama"));
+            datos.Add(new Pelicula("Un Ciudadano Ejemplar", "Venganza de un hombre despues de ver como asesinan a su esposa e hija", "http://es.web.img2.acsta.net/c_310_420/medias/nmedia/18/74/21/97/19417685.jpg", false, false, true, "Acción"));
+            datos.Add(new Pelicula("Up", "El vehículo de transporte es una casa con globos", "https://vlagc.files.wordpress.com/2018/03/4681060_640px-e1521048043801.jpg", false, true, false, "Ciencia-Ficción"));
 
 
             return datos;
@@ -166,5 +149,10 @@ namespace Proyecto1
                 }
             }
         }
+        // Ventana de juego
+
+
+
+
     }
 }

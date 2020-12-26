@@ -9,7 +9,7 @@
         Title="Películas"
         Height="450"
         Width="800">
-  <Window.Resources>
+    <Window.Resources>
         <Style TargetType="Image"
                x:Key="botones">
             <Setter Property="Source"
@@ -25,39 +25,7 @@
             <Setter Property="GroupName"
                     Value="dificultad" />
         </Style>
-        <Style TargetType="RadioButton"
-               x:Key="Facil"
-               BasedOn="{StaticResource {x:Type RadioButton}}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Dificultad}"
-                         Value="facil">
-                    <Setter Property="IsChecked"
-                            Value="True" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="RadioButton"
-               x:Key="Normal"
-               BasedOn="{StaticResource {x:Type RadioButton}}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Dificultad}"
-                             Value="normal">
-                    <Setter Property="IsChecked"
-                            Value="True" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-        <Style TargetType="RadioButton"
-               x:Key="Dificil"
-               BasedOn="{StaticResource {x:Type RadioButton}}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Dificultad}"
-                             Value="dificil">
-                    <Setter Property="IsChecked"
-                            Value="True" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
+
         <Style TargetType="Button"
                x:Key="botonesArchivo">
             <Setter Property="Margin"
@@ -72,10 +40,10 @@
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 DockPanel.Dock="Bottom">
-                      <Image Style="{StaticResource botones}"
-                             x:Name="atrasImage"
-                             RenderTransformOrigin="0.5,0.5"
-                             MouseLeftButtonDown="atrasImage_MouseLeftButtonDown">
+                        <Image Style="{StaticResource botones}"
+                               x:Name="atrasImage"
+                               RenderTransformOrigin="0.5,0.5"
+                               MouseLeftButtonDown="atrasImage_MouseLeftButtonDown">
                             <Image.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform />
@@ -88,7 +56,7 @@
                         <TextBlock x:Name="contadorTextBlock"></TextBlock>
                         <Image Style="{StaticResource botones}"
                                x:Name="adelanteImage"
-                               MouseLeftButtonDown="adelanteImage_MouseLeftButtonDown"/>
+                               MouseLeftButtonDown="adelanteImage_MouseLeftButtonDown" />
                     </StackPanel>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -98,9 +66,9 @@
                         <DockPanel Grid.Column="0"
                                    Margin="10">
                             <TextBlock Text="Cartel de la pelicula"
-                                       DockPanel.Dock="Top"/>
-                            <Image></Image>
-                        </DockPanel> 
+                                       DockPanel.Dock="Top" />
+                            <Image Source="{Binding Imagen}"></Image>
+                        </DockPanel>
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="2*" />
@@ -131,15 +99,15 @@
                                     <Button DockPanel.Dock="Right"
                                             Content="Validar"
                                             Margin="5"
-                                            Width="60"/>
-                                    <TextBox Margin="5"/>
+                                            Width="60" />
+                                    <TextBox Margin="5" />
                                 </DockPanel>
                             </StackPanel>
                             <StackPanel Orientation="Vertical"
                                         Grid.Row="2">
                                 <CheckBox Content="Ver Pista" />
-                                <TextBlock Text="Pista de la película"
-                                    Visibility="Hidden" />
+                                <TextBlock Text="{Binding Pista}"
+                                           Visibility="Hidden" />
                             </StackPanel>
                             <StackPanel Orientation="Vertical"
                                         Grid.Row="3">
@@ -154,8 +122,7 @@
             </TabItem>
             <TabItem Header="Gestionar">
                 <Grid Margin="5"
-                      x:Name="gestionarGrid"
-                      >
+                      x:Name="gestionarGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*" />
                         <ColumnDefinition Width="*" />
@@ -172,8 +139,7 @@
                              x:Name="peliculasListBox"
                              ItemsSource="{Binding}"
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                             >
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel></WrapPanel>
@@ -182,13 +148,12 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical"
-                                            Height="100"
-                                            Width="80"
-                                            >
+                                            Height="120"
+                                            Width="100">
                                     <Image Source="{Binding Imagen, Mode=TwoWay}"
-                                           Height="80"/>
+                                           Height="80" />
                                     <TextBlock Text="{Binding Titulo,Mode=TwoWay}"
-                                               HorizontalAlignment="Center"/>
+                                               HorizontalAlignment="Center" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -197,10 +162,10 @@
                                 Grid.Column="1"
                                 Grid.Row="0"
                                 Margin="5">
-                        <Button Content="Cargar de JSON" 
+                        <Button Content="Cargar de JSON"
                                 x:Name="CargarButton"
                                 Click="CargarButton_Click"
-                                Style="{StaticResource botonesArchivo}"/>
+                                Style="{StaticResource botonesArchivo}" />
                         <Button Content="Guardar en JSON"
                                 x:Name="GuardarButton"
                                 Click="GuardarButton_Click"
@@ -217,22 +182,25 @@
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 DataContext="{Binding ElementName=peliculasListBox,Path=SelectedItem}">
-                        <TextBlock Text="Título de la película"/>
-                        <TextBox x:Name="tituloTextBox" Text="{Binding Path=Titulo, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock Text="Título de la película" />
+                        <TextBox x:Name="tituloTextBox"
+                                 Text="{Binding Path=Titulo, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical"
                                 Grid.Row="2"
                                 Grid.Column="0"
                                 DataContext="{Binding ElementName=peliculasListBox,Path=SelectedItem}">
-                        <TextBlock Text="Pista de la película"/>
-                        <TextBox x:Name="pistaTextBox" Text="{Binding Path=Pista, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="Pista de la película" />
+                        <TextBox x:Name="pistaTextBox"
+                                 Text="{Binding Path=Pista, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical"
                                 Grid.Row="3"
                                 Grid.Column="0"
                                 DataContext="{Binding ElementName=peliculasListBox,Path=SelectedItem}">
-                        <TextBlock Text="Imágen de la película"/>
-                        <TextBox x:Name="imagenPeliculaTextBox" Text="{Binding Path=Imagen,UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="Imágen de la película" />
+                        <TextBox x:Name="imagenPeliculaTextBox"
+                                 Text="{Binding Path=Imagen,UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
                     <Button Grid.Column="1"
                             Grid.Row="3"
@@ -244,30 +212,37 @@
                                Grid.Row="4">
                         <TextBlock DockPanel.Dock="Left"
                                    Text="Nivel de dificultad"
-                                   Margin="0,5,10,0"/>
+                                   Margin="0,5,10,0" />
                         <StackPanel Orientation="Vertical"
                                     DockPanel.Dock="Left"
                                     VerticalAlignment="Center"
                                     DataContext="{Binding ElementName=peliculasListBox,Path=SelectedItem}">
-                            <RadioButton Content="Fácil" x:Name="facilRadioButton" Style="{StaticResource Facil}"/>
-                            <RadioButton Content="Normal" x:Name="normalRadioButton" Style="{StaticResource Normal}" />
-                            <RadioButton Content="Difícil" x:Name="dificilRadioButton" Style="{StaticResource Dificil}"/>
+                            <RadioButton Content="Fácil"
+                                         x:Name="facilRadioButton"
+                                         IsChecked="{Binding Path=Facil, UpdateSourceTrigger=PropertyChanged}" />
+                            <RadioButton Content="Normal"
+                                         x:Name="normalRadioButton"
+                                         IsChecked="{Binding Path=Normal, UpdateSourceTrigger=PropertyChanged}" />
+                            <RadioButton Content="Difícil"
+                                         x:Name="dificilRadioButton"
+                                         IsChecked="{Binding Path=Dificil, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Center">
                             <TextBlock Text="Género"
-                                       VerticalAlignment="Center" 
-                                       Margin="0,0,5,0"/>
-                            <ComboBox Width="100" 
-                                      VerticalAlignment="Center"
-                                      Height="20"
-                                      Margin="5,0,0,0"
-                                      x:Name="generoComboBox"/>
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,5,0" />
+                            <Grid DataContext="{Binding ElementName=peliculasListBox, Path=SelectedItem}">
+                                <ComboBox Width="120"
+                                          VerticalAlignment="Center"
+                                          Height="20"
+                                          Margin="5,0,0,0"
+                                          x:Name="generoComboBox"
+                                          SelectedValue="{Binding Path=Genero, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
                         </StackPanel>
                     </DockPanel>
                 </Grid>
-
-
             </TabItem>
         </TabControl>
     </Grid>
