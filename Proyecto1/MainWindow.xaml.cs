@@ -16,6 +16,7 @@ namespace Proyecto1
         ObservableCollection<Pelicula> peliculasJuego = new ObservableCollection<Pelicula>();
         ObservableCollection<Pelicula> peliculasTotales;
         int contador = 0;
+        Pelicula nueva;
         public MainWindow()
         {
             InitializeComponent();
@@ -25,7 +26,7 @@ namespace Proyecto1
             List<string> generos = new List<string> {"Comedia","Drama","Acción","Terror","Ciencia-Ficción"};
             generoComboBox.ItemsSource = generos;
             generoComboBox.SelectedItem = "Comedia";
-            int contador = 0;
+            
             añadirPeliculasJuego();
         }
 
@@ -79,32 +80,34 @@ namespace Proyecto1
 
         private void AñadirPeliculaButton_Click(object sender, RoutedEventArgs e)
         {
-            Pelicula n = new Pelicula(); ;
             if (contador == 0)
             {
+                nueva = new Pelicula();
                 contador++;
-                peliculasTotales.Add(n);
+                peliculasTotales.Add(nueva);
                 MessageBox.Show("Introduzca los datos de la películas", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
-                if (vacios())
+                if (!vacios())
                 {
-                    
-                    
-                    
-                    n.Titulo = tituloTextBox.Text;
-                    n.Pista = pistaTextBox.Text;
-                    n.Imagen = imagenPeliculaTextBox.Text;
-                    n.Genero = generoComboBox.SelectedItem.ToString();
-                    if (facilRadioButton.IsChecked == true) n.Facil = true;
-                    else n.Facil = false;
-                    if (normalRadioButton.IsChecked == true) n.Normal = true;
-                    else n.Normal = false;
-                    if (dificilRadioButton.IsChecked == true) n.Dificil = true;
-                    else n.Dificil = false;
+
+                    Pelicula quitar = nueva;
+                    nueva.Titulo = tituloTextBox.Text;
+                    nueva.Pista = pistaTextBox.Text;
+                    nueva.Imagen = imagenPeliculaTextBox.Text;
+                    if (generoComboBox.SelectedItem == null) nueva.Genero = "Comedia";
+                    else nueva.Genero = generoComboBox.SelectedItem.ToString();
+                    if (facilRadioButton.IsChecked == true) nueva.Facil = true;
+                    else nueva.Facil = false;
+                    if (normalRadioButton.IsChecked == true) nueva.Normal = true;
+                    else nueva.Normal = false;
+                    if (dificilRadioButton.IsChecked == true) nueva.Dificil = true;
+                    else nueva.Dificil = false;
                     limpiar();
                     contador = 0;
+                    peliculasTotales.Remove(quitar);
+                    peliculasTotales.Add(nueva);
                 }
                 else MessageBox.Show("Datos de película vacios", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
