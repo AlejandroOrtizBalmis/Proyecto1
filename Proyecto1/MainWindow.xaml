@@ -10,6 +10,49 @@
         Height="450"
         Width="800">
     <Window.Resources>
+        <Style TargetType="Button"
+               x:Key="botonesJuego">
+            <Setter Property="Margin"
+                    Value="0,2,0,2" />
+            <Setter Property="Height"
+                    Value="20" />
+        </Style>
+        <Style TargetType="Image"
+               x:Key="imagenGenero">
+            <Setter Property="Height"
+                    Value="50" />
+            <Setter Property="Width"
+                    Value="50" />
+            <Setter Property="Stretch"
+                    Value="Fill" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Genero}"
+                             Value="Drama">
+                    <Setter Property="Source"
+                            Value="drama.ico" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Genero}"
+                             Value="Acción">
+                    <Setter Property="Source"
+                            Value="action.ico" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Genero}"
+                             Value="Comedia">
+                    <Setter Property="Source"
+                            Value="comedy.ico" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Genero}"
+                             Value="Ciencia-Ficción">
+                    <Setter Property="Source"
+                            Value="cience.ico" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Genero}"
+                             Value="Terror">
+                    <Setter Property="Source"
+                            Value="terror.ico" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style TargetType="Image"
                x:Key="botones">
             <Setter Property="Source"
@@ -31,12 +74,50 @@
             <Setter Property="Margin"
                     Value="0,0,0,5" />
         </Style>
+        <Style TargetType="TextBlock"
+               x:Key="pistaTextBlock">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=pistaCheckBox, Path=IsChecked}"
+                             Value="True">
+                    <Setter Property="Visibility"
+                            Value="Visible" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=pistaCheckBox, Path=IsChecked}"
+                             Value="False">
+                    <Setter Property="Visibility"
+                            Value="Hidden" />
+                </DataTrigger>
+            </Style.Triggers>
+            <Setter Property="TextWrapping"
+                    Value="Wrap" />
+        </Style>
+        <Style TargetType="DockPanel"
+               x:Key="juegoBackground">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Facil}"
+                             Value="True">
+                    <Setter Property="Background"
+                            Value="Aquamarine" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Normal}"
+                             Value="True">
+                    <Setter Property="Background"
+                            Value="#FFF3B645" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Dificil}"
+                             Value="True">
+                    <Setter Property="Background"
+                            Value="#FF7E2626" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Grid>
         <TabControl>
             <TabItem Header="Jugar">
                 <DockPanel Margin="5"
-                           x:Name="jugarDockPanel">
+                           x:Name="jugarDockPanel"
+                           Style="{StaticResource juegoBackground}">
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center"
                                 DockPanel.Dock="Bottom">
@@ -66,8 +147,15 @@
                         <DockPanel Grid.Column="0"
                                    Margin="10">
                             <TextBlock Text="Cartel de la pelicula"
-                                       DockPanel.Dock="Top" />
-                            <Image Source="{Binding Imagen}"></Image>
+                                       DockPanel.Dock="Top"
+                                       HorizontalAlignment="Center"/>
+                            <Image Source="{Binding Imagen}"
+                                   Stretch="Uniform"
+                                   x:Name="juegoImage">
+                                <Image.Effect>
+                                    <BlurEffect Radius="50" />
+                                </Image.Effect>
+                            </Image>
                         </DockPanel>
                         <Grid Grid.Column="1">
                             <Grid.RowDefinitions>
@@ -76,21 +164,36 @@
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <DockPanel LastChildFill="False"
+                            <DockPanel LastChildFill="True"
                                        Grid.Row="0">
                                 <TextBlock DockPanel.Dock="Top"
                                            Text="Puntuación total"
                                            HorizontalAlignment="Center"
-                                           Margin="0,0,0,10" />
-                                <Button DockPanel.Dock="Right"
-                                        Content="Nueva Partida"
-                                        Height="20"
-                                        VerticalAlignment="Top" />
-                                <TextBox Height="80"
-                                         Width="100"
-                                         DockPanel.Dock="Top"
-                                         HorizontalAlignment="Right"
-                                         Margin="0,0,60,0" />
+                                           Margin="10,0,80,10" />
+                                <StackPanel Orientation="Vertical"
+                                            DockPanel.Dock="Right">
+                                    <Button Content="Nueva Partida"
+                                            x:Name="nuevaPartidaButton"
+                                            Click="nuevaPartidaButton_Click"
+                                            Style="{StaticResource botonesJuego}" />
+                                    <Button Content="Finalizar Juego"
+                                            x:Name="finalizarButton"
+                                            Click="finalizarButton_Click"
+                                            Style="{StaticResource botonesJuego}"/>
+
+
+                                </StackPanel>
+                                
+                                <Border DockPanel.Dock="Right"
+                                        BorderBrush="Black"
+                                        BorderThickness="3"
+                                        CornerRadius="3"
+                                        Margin="60,0,60,40">
+                                    <StackPanel Orientation="Vertical"
+                                                DockPanel.Dock="Top"
+                                                x:Name="puntuacionStackPanel"
+                                                CanVerticallyScroll="True"/>
+                                </Border>
                             </DockPanel>
                             <StackPanel Orientation="Vertical"
                                         Grid.Row="1">
@@ -99,19 +202,24 @@
                                     <Button DockPanel.Dock="Right"
                                             Content="Validar"
                                             Margin="5"
-                                            Width="60" />
-                                    <TextBox Margin="5" />
+                                            Width="60"
+                                            x:Name="validarButton"
+                                            Click="validarButton_Click" />
+                                    <TextBox Margin="5"
+                                             x:Name="tituloPeliculaJuegoTextBox" />
                                 </DockPanel>
                             </StackPanel>
                             <StackPanel Orientation="Vertical"
                                         Grid.Row="2">
-                                <CheckBox Content="Ver Pista" />
+                                <CheckBox Content="Ver Pista"
+                                          x:Name="pistaCheckBox"
+                                          Checked="pistaCheckBox_Checked"/>
                                 <TextBlock Text="{Binding Pista}"
-                                           Visibility="Hidden" />
+                                           Style="{StaticResource pistaTextBlock}"/>
                             </StackPanel>
                             <StackPanel Orientation="Vertical"
                                         Grid.Row="3">
-                                <Image HorizontalAlignment="Center" />
+                                <Image  Style="{StaticResource imagenGenero}"/>
                                 <TextBlock Text="Género"
                                            HorizontalAlignment="Center" />
                             </StackPanel>
@@ -172,7 +280,8 @@
                                 Margin="0,0,0,25" />
                         <Button Content="Eliminar película"
                                 x:Name="EliminarPeliculaButton"
-                                Style="{StaticResource botonesArchivo}" />
+                                Style="{StaticResource botonesArchivo}"
+                                Click="EliminarPeliculaButton_Click"/>
                         <Button Content="Añadir película"
                                 x:Name="AñadirPeliculaButton"
                                 Click="AñadirPeliculaButton_Click"

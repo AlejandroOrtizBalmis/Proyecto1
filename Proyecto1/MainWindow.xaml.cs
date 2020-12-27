@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Proyecto1
 {
@@ -15,8 +16,14 @@ namespace Proyecto1
     {
         ObservableCollection<Pelicula> peliculasJuego = new ObservableCollection<Pelicula>();
         ObservableCollection<Pelicula> peliculasTotales;
+        int contadorJuego = 0;
         int contador = 0;
         Pelicula nueva;
+        List<int> puntuaciones = new List<int>();
+        List<int> peliculasCorregidas = new List<int>();
+        bool terminado = false;
+        bool pista = false;
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -26,26 +33,10 @@ namespace Proyecto1
             List<string> generos = new List<string> {"Comedia","Drama","Acción","Terror","Ciencia-Ficción"};
             generoComboBox.ItemsSource = generos;
             generoComboBox.SelectedItem = "Comedia";
-            
+            jugarDockPanel.DataContext = new Pelicula("Título","Pista", "https://www.elcineenlasombra.com/wp-content/uploads/2018/10/pelicula-rodar-FB.jpg",true,false,false,"Comedia");
             añadirPeliculasJuego();
         }
 
-        private void atrasImage_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (contador == 0) contador = peliculasJuego.Count - 1;
-            else contador--;
-            jugarDockPanel.DataContext = peliculasJuego[contador];
-            contadorTextBlock.Text = (contador+1)+" / "+peliculasJuego.Count;
-        }
-
-        private void adelanteImage_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (contador == peliculasJuego.Count-1) contador =0;
-            else contador++;
-            jugarDockPanel.DataContext = peliculasJuego[contador];
-            contadorTextBlock.Text = (contador + 1) + " / " + peliculasJuego.Count;
-            
-        }
 
         private void GuardarButton_Click(object sender, RoutedEventArgs e)
         {
@@ -76,6 +67,7 @@ namespace Proyecto1
                     }
                 }
             }
+            gestionarGrid.DataContext = peliculasTotales;
         }
 
         private void AñadirPeliculaButton_Click(object sender, RoutedEventArgs e)
@@ -144,7 +136,7 @@ namespace Proyecto1
                 List<int> usados = new List<int>();
                 while (cont < 5) {
                     int numeroAleatorio = new Random().Next(0, peliculasTotales.Count);
-                    if (usados.Contains(numeroAleatorio) == false) {
+                    if (!usados.Contains(numeroAleatorio)) {
                         usados.Add(numeroAleatorio);
                         peliculasJuego.Add(peliculasTotales[numeroAleatorio]);
                         cont++;
@@ -152,10 +144,146 @@ namespace Proyecto1
                 }
             }
         }
+        private void EliminarPeliculaButton_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < peliculasTotales.Count; i++) 
+            {
+                if (peliculasListBox.SelectedItem == peliculasTotales[i]) 
+                {
+                    Pelicula p = peliculasTotales[i];
+                    peliculasTotales.Remove(p);
+                }
+            }
+        }
+
         // Ventana de juego
 
+        private void nuevaPartidaButton_Click(object sender, RoutedEventArgs e)
+        {
+            terminado = false;
+            if (peliculasTotales.Count > 5)
+            {
+                int cont = 0;
+                while (cont < 5)
+                {
+                    Random random = new Random();
+                    int num = random.Next(0, peliculasTotales.Count - 1);
+                    if (!peliculasJuego.Contains(peliculasTotales[num]))
+                    {
+                        peliculasJuego.Add(peliculasTotales[num]);
+                        cont++;
+                    }
+                }
+            }
+            else peliculasJuego = peliculasTotales;
+            jugarDockPanel.DataContext = peliculasJuego[0];
+            contadorTextBlock.Text = "1/"+peliculasJuego.Count;
+            vaciar(0);
+            puntuacionStackPanel.Children.Clear();
+            puntuaciones.Clear();
+            peliculasCorregidas.Clear();
+        }
 
 
+        private void atrasImage_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (!terminado)
+            {
+                if (contadorJuego == 0) contadorJuego = peliculasJuego.Count - 1;
+                else contadorJuego--;
+                jugarDockPanel.DataContext = peliculasJuego[contadorJuego];
+                contadorTextBlock.Text = (contadorJuego + 1) + " / " + peliculasJuego.Count;
+                vaciar(contadorJuego);
+            }
+           
+        }
 
+        private void adelanteImage_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (!terminado)
+            {
+                if (contadorJuego == peliculasJuego.Count - 1) contadorJuego = 0;
+                else contadorJuego++;
+                jugarDockPanel.DataContext = peliculasJuego[contadorJuego];
+                contadorTextBlock.Text = (contadorJuego + 1) + " / " + peliculasJuego.Count;
+                vaciar(contadorJuego);
+            }
+        }
+        public void vaciar(int cont) {
+
+            tituloPeliculaJuegoTextBox.Text = "";
+            pistaCheckBox.IsChecked = false;
+            jugarDockPanel.DataContext = peliculasJuego[cont];
+            pista = false;
+        }
+
+        private void validarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!peliculasCorregidas.Contains(contadorJuego))
+            {
+                if (peliculasJuego[contadorJuego].Titulo.ToLower() == tituloPeliculaJuegoTextBox.Text.ToLower())
+                {
+                    if (pista)
+                    {
+                        int puntos = calcularPuntos(peliculasJuego[contadorJuego].Facil, peliculasJuego[contadorJuego].Normal) / 2;
+                        añadirPuntuacion(puntos);
+                    }
+                    else
+                    {
+                        int puntos = calcularPuntos(peliculasJuego[contadorJuego].Facil, peliculasJuego[contadorJuego].Normal);
+                        añadirPuntuacion(puntos);
+                    }
+                }
+                else 
+                {
+                    añadirPuntuacion(0);
+                }
+                
+                peliculasCorregidas.Add(contadorJuego);
+            }
+        }
+        public int calcularPuntos(bool facil, bool normal) 
+        {
+            if (facil) return 150;
+            else if (normal) return 300;
+            else return 500;
+        }
+        public void añadirPuntuacion(int puntos) 
+        { 
+            Thickness thickness = new Thickness(2, 0, 2, 2);
+            TextBlock t = new TextBlock
+            {
+                FontSize = 12,
+                Margin = thickness,
+                Text = "Puntuación " + (contadorJuego+1) + " : " + puntos
+            };
+            puntuacionStackPanel.Children.Add(t);
+            puntuaciones.Add(puntos);
+        }
+
+        private void finalizarButton_Click(object sender, RoutedEventArgs e)
+        {
+            int totales = 0;
+            for (int i = 0; i < puntuaciones.Count; i++) 
+            {
+                totales = totales + puntuaciones[i];
+            }
+            Thickness thickness = new Thickness(2, 0, 2, 2);
+            TextBlock t = new TextBlock
+            {
+                FontSize = 14,
+                Margin = thickness,
+                Text = "Total : " +totales
+            };
+            puntuacionStackPanel.Children.Add(t);
+            terminado = true;
+        }
+
+        private void pistaCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            pista = true;
+        }
+
+        
     }
 }

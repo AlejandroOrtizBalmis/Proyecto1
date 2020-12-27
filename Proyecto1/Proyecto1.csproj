@@ -108,5 +108,12 @@
   <ItemGroup>
     <Resource Include="arrow.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="action.ico" />
+    <Resource Include="cience.ico" />
+    <Resource Include="comedy.ico" />
+    <Resource Include="drama.ico" />
+    <Resource Include="terror.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
