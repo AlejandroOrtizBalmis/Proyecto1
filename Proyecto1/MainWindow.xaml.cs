@@ -156,6 +156,14 @@ namespace Proyecto1
             }
         }
 
+        private void examinarButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                imagenPeliculaTextBox.Text = openFileDialog.FileName;
+            }
+        }
         // Ventana de juego
 
         private void nuevaPartidaButton_Click(object sender, RoutedEventArgs e)
@@ -284,6 +292,5 @@ namespace Proyecto1
             pista = true;
         }
 
-        
     }
 }

@@ -316,7 +316,9 @@
                             Content="Examinar"
                             Width="145"
                             Height="18"
-                            Margin="5,12,0,0" />
+                            Margin="5,12,0,0"
+                            x:Name="examinarButton"
+                            Click="examinarButton_Click"/>
                     <DockPanel Grid.Column="0"
                                Grid.Row="4">
                         <TextBlock DockPanel.Dock="Left"
