@@ -168,9 +168,8 @@
                                             DockPanel.Dock="Right">
                                     <Button Content="Nueva Partida"
                                             x:Name="nuevaPartidaButton"
-                                            Click="nuevaPartidaButton_Click"
-                                            Style="{StaticResource botonesJuego}"
-                                            KeyDown="nuevaPartidaButton_KeyDown"/>
+                                            Click="nuevaPartidaButton_Click" 
+                                            Style="{StaticResource botonesJuego}" />  <!--KeyDown="nuevaPartidaButton_KeyDown"-->
                                     <Button Content="Finalizar Juego"
                                             x:Name="finalizarButton"
                                             Click="finalizarButton_Click"

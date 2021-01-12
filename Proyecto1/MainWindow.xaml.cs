@@ -165,7 +165,7 @@ namespace Proyecto1
         private void nuevaPartidaButton_Click(object sender, RoutedEventArgs e)
         {
             terminado = false;
-            if (peliculasTotales.Count >= 5)
+            if (peliculasTotales.Count > 4)
             {
                 int cont = 0;
                 while (cont < 5)
@@ -178,7 +178,6 @@ namespace Proyecto1
                         cont++;
                     }
                 }
-
                 jugarDockPanel.DataContext = peliculasJuego[0];
                 contadorTextBlock.Text = "1/" + peliculasJuego.Count;
                 vaciar(0);
@@ -186,7 +185,11 @@ namespace Proyecto1
                 puntuaciones.Clear();
                 peliculasCorregidas.Clear();
             }
-            else MessageBox.Show("No hay películas suficientes","",MessageBoxButton.OK,MessageBoxImage.Warning);
+            else 
+            {
+                jugarDockPanel.DataContext = new Pelicula("Título", "Pista", "https://www.elcineenlasombra.com/wp-content/uploads/2018/10/pelicula-rodar-FB.jpg", "Fácil", "Comedia");
+                MessageBox.Show("No hay películas suficientes", "Error", MessageBoxButton.OK, MessageBoxImage.Warning); 
+            }
         }
 
 
@@ -289,7 +292,7 @@ namespace Proyecto1
             pista = true;
         }
 
-        private void nuevaPartidaButton_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+       /* private void nuevaPartidaButton_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             KeyGesture play = new KeyGesture(Key.N,ModifierKeys.Control);
             if (play.Matches(null,e)) 
@@ -318,6 +321,6 @@ namespace Proyecto1
                 }
                 else MessageBox.Show("No hay películas suficientes", "", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-        }
+        }*/
     }
 }
