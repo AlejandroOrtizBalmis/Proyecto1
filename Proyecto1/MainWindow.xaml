@@ -62,12 +62,6 @@
             <Setter Property="Width"
                     Value="20" />
         </Style>
-        <Style TargetType="RadioButton">
-            <Setter Property="Margin"
-                    Value="0,3,0,3" />
-            <Setter Property="GroupName"
-                    Value="dificultad" />
-        </Style>
 
         <Style TargetType="Button"
                x:Key="botonesArchivo">
@@ -94,18 +88,18 @@
         <Style TargetType="DockPanel"
                x:Key="juegoBackground">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Facil}"
-                             Value="True">
+                <DataTrigger Binding="{Binding Path=Dificultad}"
+                             Value="Fácil">
                     <Setter Property="Background"
                             Value="Aquamarine" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Path=Normal}"
-                             Value="True">
+                <DataTrigger Binding="{Binding Path=Dificultad}"
+                             Value="Normal">
                     <Setter Property="Background"
                             Value="#FFF3B645" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Path=Dificil}"
-                             Value="True">
+                <DataTrigger Binding="{Binding Path=Dificultad}"
+                             Value="Difícil">
                     <Setter Property="Background"
                             Value="#FF7E2626" />
                 </DataTrigger>
@@ -175,7 +169,8 @@
                                     <Button Content="Nueva Partida"
                                             x:Name="nuevaPartidaButton"
                                             Click="nuevaPartidaButton_Click"
-                                            Style="{StaticResource botonesJuego}" />
+                                            Style="{StaticResource botonesJuego}"
+                                            KeyDown="nuevaPartidaButton_KeyDown"/>
                                     <Button Content="Finalizar Juego"
                                             x:Name="finalizarButton"
                                             Click="finalizarButton_Click"
@@ -320,24 +315,18 @@
                             x:Name="examinarButton"
                             Click="examinarButton_Click"/>
                     <DockPanel Grid.Column="0"
-                               Grid.Row="4">
+                               Grid.Row="4"
+                               DataContext="{Binding ElementName=peliculasListBox,Path=SelectedItem}">
                         <TextBlock DockPanel.Dock="Left"
                                    Text="Nivel de dificultad"
-                                   Margin="0,5,10,0" />
-                        <StackPanel Orientation="Vertical"
-                                    DockPanel.Dock="Left"
-                                    VerticalAlignment="Center"
-                                    DataContext="{Binding ElementName=peliculasListBox,Path=SelectedItem}">
-                            <RadioButton Content="Fácil"
-                                         x:Name="facilRadioButton"
-                                         IsChecked="{Binding Path=Facil, UpdateSourceTrigger=PropertyChanged}" />
-                            <RadioButton Content="Normal"
-                                         x:Name="normalRadioButton"
-                                         IsChecked="{Binding Path=Normal, UpdateSourceTrigger=PropertyChanged}" />
-                            <RadioButton Content="Difícil"
-                                         x:Name="dificilRadioButton"
-                                         IsChecked="{Binding Path=Dificil, UpdateSourceTrigger=PropertyChanged}" />
-                        </StackPanel>
+                                   Margin="10,0,10,0" 
+                                   VerticalAlignment="Center"/>
+                        <ComboBox Height="20"
+                                  Width="120"
+                                  VerticalAlignment="Center"
+                                  Margin="5,0,0,0"
+                                  x:Name="dificultadComboBox"
+                                  SelectedValue="{Binding Path=Dificultad, UpdateSourceTrigger=PropertyChanged}" />
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Center">
                             <TextBlock Text="Género"

@@ -50,64 +50,21 @@ namespace Proyecto1
             }
         }
 
-        private Boolean facil;
+        private string dificultad;
 
-        public Boolean Facil
+        public string Dificultad
         {
-            get { return facil; }
+            get { return dificultad; }
             set 
-            { 
-                if(this.facil!=value)
-                {
-                    this.facil = value;
-                    this.NotifyPropertyChanged("Facil");
-                    if (facil) 
-                    {
-                        normal = false;
-                        dificil = false;
-                    }
-                }
-            }
-        }
-        private Boolean normal;
-
-        public Boolean Normal
-        {
-            get { return normal; }
-            set
             {
-                if (this.normal != value)
+                if (this.dificultad!=value) 
                 {
-                    this.normal = value;
-                    this.NotifyPropertyChanged("Normal");
-                    if (normal)
-                    {
-                        dificil = false;
-                        facil = false;
-                    }
-                }
+                    this.dificultad = value;
+                    this.NotifyPropertyChanged("Dificultad");
+                } 
             }
         }
 
-        private Boolean dificil;
-
-        public Boolean Dificil
-        {
-            get { return dificil; }
-            set
-            {
-                if (this.dificil != value)
-                {
-                    this.dificil = value;
-                    this.NotifyPropertyChanged("Dificil");
-                    if (dificil) 
-                    {
-                        normal = false;
-                        facil = false;
-                    }
-                }
-            }
-        }
 
         private String genero;
 
@@ -125,13 +82,11 @@ namespace Proyecto1
         }
 
         public Pelicula() { }
-        public Pelicula(String titulo, String pista, String imagen, Boolean facil,Boolean normal,  Boolean dificil, String genero) {
+        public Pelicula(String titulo, String pista, String imagen, string dificultad, String genero) {
             this.Titulo = titulo;
             this.Pista = pista;
             this.Imagen = imagen;
-            this.Facil = facil;
-            this.Normal = normal;
-            this.Dificil = dificil;
+            this.Dificultad = dificultad;
             this.Genero = genero;
         }
 
