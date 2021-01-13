@@ -171,22 +171,20 @@ namespace Proyecto1
 
         private void nuevaPartidaButton_Click(object sender, RoutedEventArgs e)
         {
-            terminado = false;
             if (peliculasTotales.Count > 4)
             {
+                terminado = false;
                 peliculasJuego = new ObservableCollection<Pelicula>();
                 Random random = new Random();
 
-                while (peliculasJuego.Count<5)
+                while (peliculasJuego.Count < 5)
                 {
-                    int num = random.Next(0, peliculasTotales.Count - 1);
+                    int num = random.Next(0, peliculasTotales.Count);
                     if (!peliculasJuego.Contains(peliculasTotales[num]))
                     {
                         peliculasJuego.Add(peliculasTotales[num]);
-
                     }
                 }
-                MessageBox.Show("peliculas totales :"+peliculasJuego.Count);
                 jugarDockPanel.DataContext = peliculasJuego[0];
                 contadorTextBlock.Text = "1/" + peliculasJuego.Count;
                 vaciar(0);
