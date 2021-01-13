@@ -169,7 +169,7 @@
                                     <Button Content="Nueva Partida"
                                             x:Name="nuevaPartidaButton"
                                             Click="nuevaPartidaButton_Click" 
-                                            Style="{StaticResource botonesJuego}" />  <!--KeyDown="nuevaPartidaButton_KeyDown"-->
+                                            Style="{StaticResource botonesJuego}" /> 
                                     <Button Content="Finalizar Juego"
                                             x:Name="finalizarButton"
                                             Click="finalizarButton_Click"

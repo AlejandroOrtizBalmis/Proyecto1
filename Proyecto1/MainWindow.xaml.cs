@@ -24,20 +24,20 @@ namespace Proyecto1
         List<int> peliculasCorregidas = new List<int>();
         bool terminado = false;
         bool pista = false;
-        
+
         public MainWindow()
         {
             InitializeComponent();
             peliculasTotales = datos();
             peliculasListBox.DataContext = peliculasTotales;
             gestionarGrid.DataContext = peliculasListBox.SelectedItem;
-            List<string> generos = new List<string> {"Comedia","Drama","Acción","Terror","Ciencia-Ficción"};
+            List<string> generos = new List<string> { "Comedia", "Drama", "Acción", "Terror", "Ciencia-Ficción" };
             generoComboBox.ItemsSource = generos;
             generoComboBox.SelectedItem = "Comedia";
-            List<string> dificultad = new List<string> {"Fácil","Normal","Difícil"};
+            List<string> dificultad = new List<string> { "Fácil", "Normal", "Difícil" };
             dificultadComboBox.ItemsSource = dificultad;
             dificultadComboBox.SelectedItem = "Fácil";
-            jugarDockPanel.DataContext = new Pelicula("Título","Pista", "https://www.elcineenlasombra.com/wp-content/uploads/2018/10/pelicula-rodar-FB.jpg","Fácil","Comedia");
+            jugarDockPanel.DataContext = new Pelicula("Título", "Pista", "https://www.elcineenlasombra.com/wp-content/uploads/2018/10/pelicula-rodar-FB.jpg", "Fácil", "Comedia");
             añadirPeliculasJuego();
         }
 
@@ -51,16 +51,17 @@ namespace Proyecto1
             {
                 File.WriteAllText(saveFileDialog.FileName, peliculas);
             }
-                
+
         }
 
         private void CargarButton_Click(object sender, RoutedEventArgs e)
-        { peliculasTotales = new ObservableCollection<Pelicula>();
+        {
+            peliculasTotales = new ObservableCollection<Pelicula>();
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Json file (*.json)|*.json";
             if (openFileDialog.ShowDialog() == true)
             {
-                if(File.OpenText(openFileDialog.FileName) != null)
+                if (File.OpenText(openFileDialog.FileName) != null)
                 {
                     using (StreamReader jsonStream = File.OpenText(openFileDialog.FileName))
                     {
@@ -107,39 +108,45 @@ namespace Proyecto1
                 else MessageBox.Show("Datos de película vacios", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-        private ObservableCollection<Pelicula> datos() {
+        private ObservableCollection<Pelicula> datos()
+        {
             ObservableCollection<Pelicula> datos = new ObservableCollection<Pelicula>();
-            datos.Add(new Pelicula("300","El protagonista de la película se llama Leónidas", "http://2.bp.blogspot.com/-bhxSSMta6ck/VqlbzSopFbI/AAAAAAAAC3w/wgOtNRNWtXA/s1600/300.jpg","Fácil","Acción"));
-            datos.Add(new Pelicula("Tron", "La mayor parte de la película transcurre dentro de un juego", "https://fundacionsistema.com/wp-content/uploads/2015/03/Tron20Legacy.jpg","Normal", "Ciencia-Ficción"));
-            datos.Add(new Pelicula("El Rey Leon", "Película de dibujos animados sobre la vida de un león", "https://2.bp.blogspot.com/--lzqGUaUL8M/WTr0pTqYXBI/AAAAAAAABpY/RvVRNiHk5NUmgQ_17H0DPvPmJtQBy32UQCLcB/s1600/the-lion-king-524fb69e8c273.jpg","Normal", "Drama"));
-            datos.Add(new Pelicula("Un Ciudadano Ejemplar", "Venganza de un hombre despues de ver como asesinan a su esposa e hija", "http://es.web.img2.acsta.net/c_310_420/medias/nmedia/18/74/21/97/19417685.jpg","Difícil", "Acción"));
-            datos.Add(new Pelicula("Up", "El vehículo de transporte es una casa con globos", "https://vlagc.files.wordpress.com/2018/03/4681060_640px-e1521048043801.jpg","Normal", "Ciencia-Ficción"));
+            datos.Add(new Pelicula("300", "El protagonista de la película se llama Leónidas", "http://2.bp.blogspot.com/-bhxSSMta6ck/VqlbzSopFbI/AAAAAAAAC3w/wgOtNRNWtXA/s1600/300.jpg", "Fácil", "Acción"));
+            datos.Add(new Pelicula("Tron", "La mayor parte de la película transcurre dentro de un juego", "https://fundacionsistema.com/wp-content/uploads/2015/03/Tron20Legacy.jpg", "Normal", "Ciencia-Ficción"));
+            datos.Add(new Pelicula("El Rey Leon", "Película de dibujos animados sobre la vida de un león", "https://2.bp.blogspot.com/--lzqGUaUL8M/WTr0pTqYXBI/AAAAAAAABpY/RvVRNiHk5NUmgQ_17H0DPvPmJtQBy32UQCLcB/s1600/the-lion-king-524fb69e8c273.jpg", "Normal", "Drama"));
+            datos.Add(new Pelicula("Un Ciudadano Ejemplar", "Venganza de un hombre despues de ver como asesinan a su esposa e hija", "http://es.web.img2.acsta.net/c_310_420/medias/nmedia/18/74/21/97/19417685.jpg", "Difícil", "Acción"));
+            datos.Add(new Pelicula("Up", "El vehículo de transporte es una casa con globos", "https://vlagc.files.wordpress.com/2018/03/4681060_640px-e1521048043801.jpg", "Normal", "Ciencia-Ficción"));
 
 
             return datos;
         }
-        private void limpiar() {
+        private void limpiar()
+        {
             tituloTextBox.Text = "";
             pistaTextBox.Text = "";
             imagenPeliculaTextBox.Text = "";
             dificultadComboBox.SelectedItem = "Fácil";
             generoComboBox.SelectedItem = "Comedia";
         }
-        public bool vacios() {
-            if (tituloTextBox.Text == ""  && imagenPeliculaTextBox.Text == "" && pistaTextBox.Text == "")
+        public bool vacios()
+        {
+            if (tituloTextBox.Text == "" && imagenPeliculaTextBox.Text == "" && pistaTextBox.Text == "")
                 return true;
             else return false;
         }
-        public void añadirPeliculasJuego(){
+        public void añadirPeliculasJuego()
+        {
             if (peliculasTotales.Count <= 5) peliculasJuego = peliculasTotales;
             else
             {
                 peliculasJuego = new ObservableCollection<Pelicula>();
                 int cont = 0;
                 List<int> usados = new List<int>();
-                while (cont < 5) {
+                while (cont < 5)
+                {
                     int numeroAleatorio = new Random().Next(0, peliculasTotales.Count);
-                    if (!usados.Contains(numeroAleatorio)) {
+                    if (!usados.Contains(numeroAleatorio))
+                    {
                         usados.Add(numeroAleatorio);
                         peliculasJuego.Add(peliculasTotales[numeroAleatorio]);
                         cont++;
@@ -167,28 +174,31 @@ namespace Proyecto1
             terminado = false;
             if (peliculasTotales.Count > 4)
             {
-                int cont = 0;
-                while (cont < 5)
+                peliculasJuego = new ObservableCollection<Pelicula>();
+                Random random = new Random();
+
+                while (peliculasJuego.Count<5)
                 {
-                    Random random = new Random();
                     int num = random.Next(0, peliculasTotales.Count - 1);
                     if (!peliculasJuego.Contains(peliculasTotales[num]))
                     {
                         peliculasJuego.Add(peliculasTotales[num]);
-                        cont++;
+
                     }
                 }
+                MessageBox.Show("peliculas totales :"+peliculasJuego.Count);
                 jugarDockPanel.DataContext = peliculasJuego[0];
                 contadorTextBlock.Text = "1/" + peliculasJuego.Count;
                 vaciar(0);
                 puntuacionStackPanel.Children.Clear();
                 puntuaciones.Clear();
                 peliculasCorregidas.Clear();
+
             }
-            else 
+            else
             {
                 jugarDockPanel.DataContext = new Pelicula("Título", "Pista", "https://www.elcineenlasombra.com/wp-content/uploads/2018/10/pelicula-rodar-FB.jpg", "Fácil", "Comedia");
-                MessageBox.Show("No hay películas suficientes", "Error", MessageBoxButton.OK, MessageBoxImage.Warning); 
+                MessageBox.Show("No hay películas suficientes", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -203,7 +213,7 @@ namespace Proyecto1
                 contadorTextBlock.Text = (contadorJuego + 1) + " / " + peliculasJuego.Count;
                 vaciar(contadorJuego);
             }
-           
+
         }
 
         private void adelanteImage_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -217,7 +227,8 @@ namespace Proyecto1
                 vaciar(contadorJuego);
             }
         }
-        public void vaciar(int cont) {
+        public void vaciar(int cont)
+        {
 
             tituloPeliculaJuegoTextBox.Text = "";
             pistaCheckBox.IsChecked = false;
@@ -242,28 +253,28 @@ namespace Proyecto1
                         añadirPuntuacion(puntos);
                     }
                 }
-                else 
+                else
                 {
                     añadirPuntuacion(0);
                 }
-                
+
                 peliculasCorregidas.Add(contadorJuego);
             }
         }
-        public int calcularPuntos(string dificultad) 
+        public int calcularPuntos(string dificultad)
         {
-            if (dificultad=="Fácil") return 150;
+            if (dificultad == "Fácil") return 150;
             else if (dificultad == "Normal") return 300;
             else return 500;
         }
-        public void añadirPuntuacion(int puntos) 
-        { 
+        public void añadirPuntuacion(int puntos)
+        {
             Thickness thickness = new Thickness(2, 0, 2, 2);
             TextBlock t = new TextBlock
             {
                 FontSize = 12,
                 Margin = thickness,
-                Text = "Puntuación " + (contadorJuego+1) + " : " + puntos
+                Text = "Puntuación " + (contadorJuego + 1) + " : " + puntos
             };
             puntuacionStackPanel.Children.Add(t);
             puntuaciones.Add(puntos);
@@ -272,7 +283,7 @@ namespace Proyecto1
         private void finalizarButton_Click(object sender, RoutedEventArgs e)
         {
             int totales = 0;
-            for (int i = 0; i < puntuaciones.Count; i++) 
+            for (int i = 0; i < puntuaciones.Count; i++)
             {
                 totales = totales + puntuaciones[i];
             }
@@ -281,7 +292,7 @@ namespace Proyecto1
             {
                 FontSize = 14,
                 Margin = thickness,
-                Text = "Total : " +totales
+                Text = "Total : " + totales
             };
             puntuacionStackPanel.Children.Add(t);
             terminado = true;
@@ -292,35 +303,5 @@ namespace Proyecto1
             pista = true;
         }
 
-       /* private void nuevaPartidaButton_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            KeyGesture play = new KeyGesture(Key.N,ModifierKeys.Control);
-            if (play.Matches(null,e)) 
-            {
-                terminado = false;
-                if (peliculasTotales.Count >= 5)
-                {
-                    int cont = 0;
-                    while (cont < 5)
-                    {
-                        Random random = new Random();
-                        int num = random.Next(0, peliculasTotales.Count - 1);
-                        if (!peliculasJuego.Contains(peliculasTotales[num]))
-                        {
-                            peliculasJuego.Add(peliculasTotales[num]);
-                            cont++;
-                        }
-                    }
-
-                    jugarDockPanel.DataContext = peliculasJuego[0];
-                    contadorTextBlock.Text = "1/" + peliculasJuego.Count;
-                    vaciar(0);
-                    puntuacionStackPanel.Children.Clear();
-                    puntuaciones.Clear();
-                    peliculasCorregidas.Clear();
-                }
-                else MessageBox.Show("No hay películas suficientes", "", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-        }*/
     }
 }
