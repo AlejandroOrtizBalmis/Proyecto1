@@ -44,7 +44,7 @@ namespace Proyecto1
 
         private void GuardarButton_Click(object sender, RoutedEventArgs e)
         {
-            string peliculas = JsonConvert.SerializeObject(peliculasJuego);
+            string peliculas = JsonConvert.SerializeObject(peliculasTotales);
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Json file (*.json)|*.json";
             if (saveFileDialog.ShowDialog() == true)
